@@ -18,6 +18,7 @@ struct ListRowView: View {
             Text(item.title)
             Spacer()
         }
+        .font(.title3)
     }
 }
 

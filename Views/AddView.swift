@@ -13,6 +13,9 @@ struct AddView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @State var textFieldText : String = ""
     
+    @State var alertTitle: String = "Your text should be more than 3 character long 😊"
+    @State var showAlert: Bool = false
+    
     var body: some View {
         ScrollView{
             VStack {
@@ -33,12 +36,27 @@ struct AddView: View {
             }
             .padding()
         }
+        .alert(isPresented: $showAlert, content: getAlert)
         .navigationTitle("Add an Item 🖊️")
     }
     
     func saveButtonPressed(){
-        listViewModel.addItem(title: textFieldText)
-        presentationMode.wrappedValue.dismiss()
+        if textIsAppropriate() {
+            listViewModel.addItem(title: textFieldText)
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    func textIsAppropriate() -> Bool{
+        if textFieldText.count < 4 {
+            showAlert.toggle()
+            return false
+        }
+        return true
+    }
+    
+    func getAlert() -> Alert{
+        return Alert(title: Text(alertTitle))
     }
 }
 
