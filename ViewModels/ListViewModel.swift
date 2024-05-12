@@ -52,3 +52,5 @@ class ListViewModel : ObservableObject{
         }
     }
 }
+ // project almost completed
+
